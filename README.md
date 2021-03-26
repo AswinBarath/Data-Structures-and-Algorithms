@@ -16,6 +16,10 @@
     - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Arrays%20and%20Strings/UniqueStrings.java)
 - [x] [String Compression](https://leetcode.com/problems/string-compression/description/)
     - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Arrays%20and%20Strings/StringCompression.java)
+- [x] [Circular Array Loop](https://leetcode.com/problems/circular-array-loop/)
+    - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Arrays%20and%20Strings/CircularArrayLoop.java)
+- [x] [Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)
+    - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Arrays%20and%20Strings/MaximumSumSubarray.java)
 
 ### Bitmasking
 
