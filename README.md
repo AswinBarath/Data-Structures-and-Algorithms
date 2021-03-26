@@ -16,10 +16,15 @@
     - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Arrays%20and%20Strings/UniqueStrings.java)
 - [x] [String Compression](https://leetcode.com/problems/string-compression/description/)
     - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Arrays%20and%20Strings/StringCompression.java)
+- [x] [Container Containing Most Water](https://leetcode.com/problems/container-with-most-water/)
+    - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Arrays%20and%20Strings/ContainerContainingMostWater.java)
+- [x] [Power of Four](https://leetcode.com/problems/power-of-four/)
+    - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Arrays%20and%20Strings/PowerOfFour.java)
 - [x] [Circular Array Loop](https://leetcode.com/problems/circular-array-loop/)
     - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Arrays%20and%20Strings/CircularArrayLoop.java)
 - [x] [Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)
     - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Arrays%20and%20Strings/MaximumSumSubarray.java)
+
 
 ### Bitmasking
 
