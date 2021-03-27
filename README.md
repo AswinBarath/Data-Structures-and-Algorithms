@@ -41,4 +41,15 @@
 - [x] [Multiple of 3](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Bitmasking/MultipleOf3.txt)
     - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Bitmasking/MultipleOf3.java)
 
+
+
+### Dynamic Prgramming
+
+- [x] [Coin Change 2](https://leetcode.com/problems/coin-change-2/)
+    - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Dynamic%20Programming/CoinChange2.java)
+- [x] [Delete and Earn](https://leetcode.com/problems/delete-and-earn/)
+    - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Dynamic%20Programming/DeleteAndEarn.java)
+- [x] [House Robber](https://leetcode.com/problems/house-robber/)
+    - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Dynamic%20Programming/HouseRobber.java)
+
 </span>
