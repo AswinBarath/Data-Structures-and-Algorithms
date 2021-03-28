@@ -24,6 +24,18 @@
     - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Arrays%20and%20Strings/CircularArrayLoop.java)
 - [x] [Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)
     - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Arrays%20and%20Strings/MaximumSumSubarray.java)
+- [x] [Move Zeroes](https://leetcode.com/problems/move-zeroes/description/)
+    - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Arrays%20and%20Strings/MoveZeroes.java)
+
+
+
+### Hash Tables
+
+- [x] [Distribute Candies](https://leetcode.com/problems/distribute-candies/)
+    - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Hash%20Tables/DistributeCandies.java)
+- [x] [Happy Numbers](https://leetcode.com/problems/happy-number/)
+    - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Hash%20Tables/OverHappyNumbers.java)
+
 
 
 ### Bitmasking
