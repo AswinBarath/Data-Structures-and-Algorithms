@@ -26,6 +26,14 @@
     - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Arrays%20and%20Strings/MaximumSumSubarray.java)
 - [x] [Move Zeroes](https://leetcode.com/problems/move-zeroes/description/)
     - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Arrays%20and%20Strings/MoveZeroes.java)
+- [x] [Count Zeroes](https://leetcode.com/problems/factorial-trailing-zeroes/)
+    - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Arrays%20and%20Strings/CountZeroes.java)
+- [x] [Target Zero]()
+    - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Arrays%20and%20Strings/TargetZero.java)
+- [x] [Overlapping Rectangles](https://leetcode.com/problems/rectangle-overlap/)
+    - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Arrays%20and%20Strings/OverlappingRectangles.java)
+- [x] [Word Distance I](https://leetcode.com/problems/shortest-word-distance/)
+    - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Arrays%20and%20Strings/WordDistance1.java)
 
 
 
