@@ -55,8 +55,9 @@
         We define f (X, Y) as number of different corresponding bits in binary representation of X and Y. For example, f (2, 7) = 2, since binary representation of 2 and 7 are 010 and 111, respectively. The first and the third bit differ, so f (2, 7) = 2.
 
         You are given an array A of N integers, A1, A2 ,…, AN. Find sum of f(Ai, Aj) for all pairs (i, j) such that 1 ≤ i, j ≤ N. Return the answer modulo 10^9+7.
-        
+
         Example 1:
+
             Input: N = 2
 
             A = {2, 4}
@@ -93,7 +94,9 @@
         Expected Auxiliary Space: O(1)
 
         Constraints:
+
             1 ≤ N ≤ 104
+
             -2,147,483,648 ≤ A[i] ≤ 2,147,483,647
 
       </details>
