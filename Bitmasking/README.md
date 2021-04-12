@@ -1,9 +1,10 @@
 # Problems on Bitmasking
 
-- [x] [Sum of Bit difference](https://practice.geeksforgeeks.org/problems/find-sum-of-different-corresponding-bits-for-all-pairs4652/1)
+## - [x] [Sum of Bit difference](https://practice.geeksforgeeks.org/problems/find-sum-of-different-corresponding-bits-for-all-pairs4652/1)
 <details>
         <summary>Problem</summary>
-        - We define f (X, Y) as number of different corresponding bits in binary representation of X and Y.
+
+        We define f (X, Y) as number of different corresponding bits in binary representation of X and Y.
 
         For example, f (2, 7) = 2, since binary representation of 2 and 7 are 010 and 111, respectively.
 
@@ -66,6 +67,7 @@
 - [x] [Missing Number](https://leetcode.com/problems/missing-number/)
 <details>
         <summary>Problem</summary>
+
         Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.
 
         Follow up: Could you implement a solution using only O(1) extra space complexity and O(n) runtime complexity?
@@ -145,6 +147,7 @@
 - [x] [Multiple of 3](#)
 <details>
     <summary>Problem</summary>
+
         Take a binary number , if this number multiple of 3 print 1 otherwise print 0.
         
         The given number can range upto 2^100.
