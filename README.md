@@ -50,15 +50,10 @@
 ### Bitmasking
 
 - [x] [Sum of Bit difference](https://practice.geeksforgeeks.org/problems/find-sum-of-different-corresponding-bits-for-all-pairs4652/1)
-    
 - [x] [Missing Number](https://leetcode.com/problems/missing-number/)
-    
 - [x] [Single Number](https://leetcode.com/problems/single-number/)
-    
 - [x] [Power of Two](https://leetcode.com/problems/power-of-two/)
-    
 - [x] [Reduce number to 1](https://www.geeksforgeeks.org/reduce-a-number-to-1-by-performing-given-operations/)
-    
 - [x] [Multiple of 3](#)
     
 
