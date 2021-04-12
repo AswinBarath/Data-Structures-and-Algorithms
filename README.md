@@ -158,21 +158,70 @@
             1 <= n <= 104
 
             0 <= nums[i] <= n
-            
+
             All the numbers of nums are unique.
       </details>
     - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Bitmasking/MissingNumber.java)
 
 - [x] [Single Number](https://leetcode.com/problems/single-number/)
+    - <details>
+        <summary>Problem</summary>
+
+      </details>
+
     - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Bitmasking/UniqueNumber2.java)
 
 - [x] [Power of Two](https://leetcode.com/problems/power-of-two/)
+    - <details>
+        <summary>Problem</summary>
+
+      </details>
+
     - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Bitmasking/IsPowerOfTwo.java)
 
 - [x] [Reduce number to 1](https://www.geeksforgeeks.org/reduce-a-number-to-1-by-performing-given-operations/)
+    - <details>
+        <summary>Problem</summary>
+
+      </details>
     - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Bitmasking/IntegerReplacement.java)
 
-- [x] [Multiple of 3](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Bitmasking/MultipleOf3.txt)
+- [x] [Multiple of 3](#)
+    - <details>
+        <summary>Problem</summary>
+        Take a binary number , if this number multiple of 3 print 1 otherwise print 0.
+        
+        The given number can range upto 2^100.
+
+        To finish the task , it is recommended to use one traversal of input binary String.
+
+        Input Format:
+
+            The first line contains T denoting the number of testcases. 
+            
+            Each case contains a string containing 0's and 1's.
+
+        Constraints:
+
+            1<=T<=100, 1<=Length of Input String<=100
+
+        Output Format:
+
+            For each test case, print 1 if string is multiple of 3, else print 0.
+
+        Sample Input:
+
+            2
+            011
+            100
+
+        Sample Output:
+
+            1
+            0
+
+      </details>
+
     - [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Bitmasking/MultipleOf3.java)
 
 
