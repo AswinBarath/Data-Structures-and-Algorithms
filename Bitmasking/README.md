@@ -1,6 +1,6 @@
 # Problems on Bitmasking
 
-## - [x] [Sum of Bit difference](https://practice.geeksforgeeks.org/problems/find-sum-of-different-corresponding-bits-for-all-pairs4652/1)
+## [Sum of Bit difference](https://practice.geeksforgeeks.org/problems/find-sum-of-different-corresponding-bits-for-all-pairs4652/1)
 <details>
         <summary>Problem</summary>
 
@@ -64,7 +64,7 @@
 
 [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Bitmasking/SumOfBitDiff.java)
 
-- [x] [Missing Number](https://leetcode.com/problems/missing-number/)
+## [Missing Number](https://leetcode.com/problems/missing-number/)
 <details>
         <summary>Problem</summary>
 
@@ -118,7 +118,7 @@
 
 [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Bitmasking/MissingNumber.java)
 
-- [x] [Single Number](https://leetcode.com/problems/single-number/)
+## [Single Number](https://leetcode.com/problems/single-number/)
 <details>
     <summary>Problem</summary>
 
@@ -127,7 +127,7 @@
 
 [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Bitmasking/UniqueNumber2.java)
 
-- [x] [Power of Two](https://leetcode.com/problems/power-of-two/)
+## [Power of Two](https://leetcode.com/problems/power-of-two/)
 <details>
     <summary>Problem</summary>
 
@@ -136,7 +136,7 @@
 
 [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Bitmasking/IsPowerOfTwo.java)
 
-- [x] [Reduce number to 1](https://www.geeksforgeeks.org/reduce-a-number-to-1-by-performing-given-operations/)
+## [Reduce number to 1](https://www.geeksforgeeks.org/reduce-a-number-to-1-by-performing-given-operations/)
 <details>
     <summary>Problem</summary>
 
@@ -144,7 +144,7 @@
 
 [Solution](https://github.com/AswinBarath/Data-Structures-and-Algorithms/blob/main/Bitmasking/IntegerReplacement.java)
 
-- [x] [Multiple of 3](#)
+## [Multiple of 3](#)
 <details>
     <summary>Problem</summary>
 
