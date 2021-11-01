@@ -1,4 +1,81 @@
-# Problems on Data Structures and Algorithms
+<h1 align="center">Data Structures and Algorithms</h1>
+
+<h2 align="center">👨‍💻 Data Structures Repositories 👨‍💻</h2>
+
+<br>
+
+<div width="100%" align="center">
+  <a align="left" href="https://github.com/AswinBarath/Arrays" title="Arrays"><img align="left" height="100" src="https://github-readme-stats.vercel.app/api/pin/?username=AswinBarath&repo=Arrays&theme=react&border_color=61dafb&border_radius=10"></a>
+  <a align="right" href="https://github.com/AswinBarath/HashMaps" title="HashMaps"><img align="right" height="100" src="https://github-readme-stats.vercel.app/api/pin/?username=AswinBarath&repo=HashMaps&theme=react&border_color=61dafb&border_radius=10"></a>
+</div>
+<br><br><br><br><br><br>
+
+<div width="100%" align="center">
+  <a align="left" href="https://github.com/AswinBarath/Linked-lists" title="Linked-lists"><img align="left" height="100" src="https://github-readme-stats.vercel.app/api/pin/?username=AswinBarath&repo=Linked-lists&theme=react&border_color=61dafb&border_radius=10"></a>
+  <a align="right" href="https://github.com/AswinBarath/Stacks" title="Stacks"><img align="right" height="100" src="https://github-readme-stats.vercel.app/api/pin/?username=AswinBarath&repo=Stacks&theme=react&border_color=61dafb&border_radius=10"></a>
+</div>
+<br><br><br><br><br><br>
+
+<div width="100%" align="center">
+  <a align="left" href="https://github.com/AswinBarath/Queues" title="Queues"><img align="left" height="100" src="https://github-readme-stats.vercel.app/api/pin/?username=AswinBarath&repo=Queues&theme=react&border_color=61dafb&border_radius=10"></a>
+  <a align="right" href="https://github.com/AswinBarath/Trees" title="Trees"><img align="right" height="100" src="https://github-readme-stats.vercel.app/api/pin/?username=AswinBarath&repo=Trees&theme=react&border_color=61dafb&border_radius=10"></a>
+</div>
+<br><br><br><br><br><br>
+
+
+<div width="100%" align="center">
+  <a align="left" href="https://github.com/AswinBarath/Graphs" title="Graphs"><img align="left" height="100" src="https://github-readme-stats.vercel.app/api/pin/?username=AswinBarath&repo=Graphs&theme=react&border_color=61dafb&border_radius=10"></a>
+  <a align="right" href="https://github.com/AswinBarath/Heaps" title="Heaps"><img align="right" height="100" src="https://github-readme-stats.vercel.app/api/pin/?username=AswinBarath&repo=Heaps&theme=react&border_color=61dafb&border_radius=10"></a>
+</div>
+<br><br><br><br><br><br>
+
+<div width="100%" align="center">
+  <a align="left" href="https://github.com/AswinBarath/Tries" title="Tries"><img align="left" height="100" src="https://github-readme-stats.vercel.app/api/pin/?username=AswinBarath&repo=Tries&theme=react&border_color=61dafb&border_radius=10"></a>
+  <a align="right" href="https://github.com/AswinBarath/String-Manipulation" title="String-Manipulation"><img align="right" height="100" src="https://github-readme-stats.vercel.app/api/pin/?username=AswinBarath&repo=String-Manipulation&theme=react&border_color=61dafb&border_radius=10"></a>
+</div>
+<br><br><br><br><br><br> 
+
+<h2 align="center">👨‍💻 Algorithms Repositories 👨‍💻</h2>
+
+<div width="100%" align="center">
+  <a align="left" href="https://github.com/AswinBarath/Greedy-algorithms" title="Greedy-algorithms"><img align="left" height="100" src="https://github-readme-stats.vercel.app/api/pin/?username=AswinBarath&repo=Greedy-algorithms&theme=react&border_color=61dafb&border_radius=10"></a>
+  <a align="right" href="https://github.com/AswinBarath/2-pointers" title="2-pointers"><img align="right" height="100" src="https://github-readme-stats.vercel.app/api/pin/?username=AswinBarath&repo=2-pointers&theme=react&border_color=61dafb&border_radius=10"></a></a>
+</div>
+<br><br><br><br><br><br>
+
+<div width="100%" align="center">
+  <a align="left" href="https://github.com/AswinBarath/Sorting-algorithms" title="Sorting-algorithms"><img align="left" height="100" src="https://github-readme-stats.vercel.app/api/pin/?username=AswinBarath&repo=Sorting-algorithms&theme=react&border_color=61dafb&border_radius=10"></a>
+  <a align="right" href="https://github.com/AswinBarath/Binary-Search" title="Binary-Search"><img align="right" height="100" src="https://github-readme-stats.vercel.app/api/pin/?username=AswinBarath&repo=Binary-Search&theme=react&border_color=61dafb&border_radius=10"></a></a>
+</div>
+<br><br><br><br><br><br>
+
+<div width="100%" align="center">
+  <a align="left" href="https://github.com/AswinBarath/Bit-Manipulation" title="Bit-Manipulation"><img align="left" height="100" src="https://github-readme-stats.vercel.app/api/pin/?username=AswinBarath&repo=Bit-Manipulation&theme=react&border_color=61dafb&border_radius=10"></a>
+  <a align="right" href="https://github.com/AswinBarath/Recursion" title="Recursion"><img align="right" height="100" src="https://github-readme-stats.vercel.app/api/pin/?username=AswinBarath&repo=Recursion&theme=react&border_color=61dafb&border_radius=10"></a></a>
+</div>
+<br><br><br><br><br><br>
+
+<div width="100%" align="center">
+  <a align="left" href="https://github.com/AswinBarath/Backtracking" title="Backtracking"><img align="left" height="100" src="https://github-readme-stats.vercel.app/api/pin/?username=AswinBarath&repo=Backtracking&theme=react&border_color=61dafb&border_radius=10"></a>
+  <a align="right" href="https://github.com/AswinBarath/Dynamic-Programming" title="Dynamic-Programming"><img align="right" height="100" src="https://github-readme-stats.vercel.app/api/pin/?username=AswinBarath&repo=Dynamic-Programming&theme=react&border_color=61dafb&border_radius=10"></a></a>
+</div>
+<br><br><br><br><br><br>
+
+<h2 align="center">👨‍💻 Curated Repositories 👨‍💻</h2>
+
+<div width="100%" align="center">
+  <a align="left" href="https://github.com/AswinBarath/SDE-Problems" title="SDE-Problems"><img align="left" height="100" src="https://github-readme-stats.vercel.app/api/pin/?username=AswinBarath&repo=SDE-Problems&theme=react&border_color=61dafb&border_radius=10"></a>
+  <a align="right" href="https://github.com/AswinBarath/FAANG30" title="FAANG30"><img align="right" height="100" src="https://github-readme-stats.vercel.app/api/pin/?username=AswinBarath&repo=FAANG30&theme=react&border_color=61dafb&border_radius=10"></a></a>
+</div>
+<br><br><br><br><br><br>
+
+
+
+
+---
+
+
+## Problems on Data Structures and Algorithms
 
 <span style="font-size: 150%;">
 
