@@ -1,5 +1,32 @@
 <h1 align="center">Data Structures and Algorithms</h1>
 
+## Plan to learn Data Structures and Algorithms
+
+### Techniques for efficient learning
+
+➡ **Take notes** on each and every single concept you learn
+
+➡ **Active Recall** is the best technique to learn
+
+### Framework
+
+- ➡ **Theory** of basics from each Data Structure and Algorithm
+- ➡ **Code Implementation** of each Data Structure and Algorithm
+- ➡ **Curate Leetcode Interview Problems** and sort them by:
+    - Data Structure/Algorithm used
+    - Techniques used
+    - Optimization used
+
+### Advice based on experience
+
+➡ Start solving problems on your own with regular breaks
+
+➡ Use online resources only when necessary and save them in the respective GitHub Repositories
+
+➡ Use Git and GitHub with Habit Tracker for Dopamine Hits & Progress Visibility
+
+---
+
 <h2 align="center">👨‍💻 Data Structures Repositories 👨‍💻</h2>
 
 <br>
