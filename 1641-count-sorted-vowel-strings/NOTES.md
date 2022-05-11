@@ -1,40 +1,28 @@
-for (int i=1; i<=n; i++) {
-for (int k=1; k<=5; k++) {
-dp[k] += dp[k-1];
-}
-}
-return dp[5];
-}
-}
-```
+# 1641. Count Sorted Vowel Strings
 ​
-### Explanation
+## Java | 3 Solutions | Math | DP | Recursion
 ​
-- Here we create an array call **dp**
-- The dp array is filled with 1 except dp[0] which is filled as 0
-- We take two loops: one for the number of elements *n* and another for the size of vowels *5*
-- Then we keep track of the count of strings in each position till the end
-- Finally the total count is stored in the last index of dp which **dp[5]**
--
-​
-**Time Complexity:** O(N) <- O(N x 5)
-**Space Complexity:** O(1)
-​
-## Recursive Solution
+## Mathematical Solution
 ​
 ### Java Code
 ​
 ```
 class Solution {
 public int countVowelStrings(int n) {
-return countstrings(n,0);
+return ( (n + 4) * (n + 3) * (n + 2) * (n + 1) ) / 24;
 }
-public int countstrings(int n, int start)
-{
-// Base case
-if (n == 0) {
-return 1;
 }
-int cnt = 0;
-// Recursive case
-for (int i = start; i < 5; i++)
+```
+​
+### Explanation
+​
+- The problem states that we have to count only the lexicographically sorted strings.
+- This means we cannot take "ea" for n=2, but only "ae. Because 'e' comes after 'a' in the Alphabet.
+- So, in terms of mathematics you need to calculate the **combination** and not the **permutation**
+- To count the combination of sorted vowels of n elements: *formula = C(m + n - 1, n)*, where
+- m is size of given set i.e. vovels
+- n is the the number of elements
+- So, after substituting the above values we get:
+- C(m + n - 1, n) = C(5 + n - 1, n) = C(n + 4, n)
+- C(n + 4, n) = C(n + 4, (n + 4) - n) = C(n + 4, 4)
+- Formula to calculate nCr:
