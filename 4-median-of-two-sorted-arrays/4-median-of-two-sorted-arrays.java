@@ -5,7 +5,7 @@ class Solution {
         }        
         else {
             return Median_of_Two_Array(nums2, nums1);
-        }        
+        }
     }
 
 	public static double Median_of_Two_Array(int[] arr1, int[] arr2) {
