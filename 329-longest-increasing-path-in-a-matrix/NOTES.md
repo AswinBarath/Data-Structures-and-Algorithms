@@ -34,11 +34,7 @@ return max;
 public int dfsOfLen(int r, int c, int preVal, int[][] matrix, int[][] dp) {
 ​
 // Base cases
-if (r < 0 || c < 0 || r == cLen || c == cLen || matrix[r][c] <= preVal) {
+if (r < 0 || c < 0 || r == rLen || c == cLen || matrix[r][c] <= preVal) {
 return 0;
 }
 if (dp[r][c] != 0) {
-return dp[r][c];
-}
-​
-// Recursive cases
