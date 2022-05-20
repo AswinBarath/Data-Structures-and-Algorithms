@@ -1,16 +1,3 @@
-# [63. Unique Paths II](https://leetcode.com/problems/unique-paths-ii/)
-​
-**Please 🔼 upvote this post if you find the answer useful & do comment about your thoughts 💬**
-​
-## Java | DP-Recursion | O(M x N)
-​
-### Better -> Dynamic Programming Approach
-- We optimze the recursive approach by using memoization:
-- to cache the overlapping subproblems
-- to reuse the cache to avoid repeated recursive calls
-- Time & Space Complexity: O(M x N)
-- Runtime: 0 ms, faster than 100.00% of Java online submissions for Unique Paths.
-​
 #### Java Code
 ​
 ```
@@ -18,6 +5,24 @@ class Solution {
 public int uniquePathsWithObstacles(int[][] obstacleGrid) {
 int m = obstacleGrid.length;
 int n = obstacleGrid[0].length;
-int[][] dp = new int[m][n];
-for (int[] row : dp)
-Arrays.fill(row, -1);
+return countPaths(0, 0, m, n, obstacleGrid);
+}
+​
+public int countPaths(int i, int j, int m, int n, int[][] obstacleGrid) {
+// Base cases
+if (i >= m || j >= n)
+return 0;
+if (obstacleGrid[i][j] == 1)
+return 0;
+if (i == (m - 1) && j == (n - 1))
+return 1;
+​
+// Recursive cases
+return countPaths(i + 1, j, m, n, obstacleGrid) + countPaths(i, j + 1, m, n, obstacleGrid);
+}
+}
+```
+​
+---
+​
+Also Check out **Unique Paths I** problem's solution over here: https://leetcode.com/problems/unique-paths/discuss/2056773/Java-or-Brute-Better-Optimal-or-Math-DP-Recursion
