@@ -4,7 +4,7 @@ class Solution {
         if(num == 1)
             return true;
         
-        // Take long to also include decimal test cases
+        // Take long data type to also include decimal sqrt of test cases
         long lo = 1;
         // Reducing search space based on given number
         long hi = num / 2;
