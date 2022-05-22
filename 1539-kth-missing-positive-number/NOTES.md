@@ -2,7 +2,7 @@
 ​
 Please 🔼 upvote this post if you find the answer useful & do comment about your thoughts 💬
 ​
-## Java | Binary Search
+## Java | Binary Search | Faster than 100.00%
 ​
 ### Java Code
 ​
