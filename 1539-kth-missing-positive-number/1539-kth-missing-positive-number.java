@@ -19,7 +19,6 @@ Approach:
     the number of missing under A[m] is A[m] - 1 - m.
 
     If A[m] - 1 - m < k, m is too small, we update left = m.
-    If A[m] - 1 - m >= k, m is big enough, we update right = m.
-    
+    If A[m] - 1 - m >= k, m is big enough, we update right = m.  
     
 */
