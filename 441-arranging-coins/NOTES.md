@@ -6,8 +6,24 @@
 ​
 ### Java Solution - Math
 ​
-```
+- We can find the total number coins required at **nth** step using Guass's formula
+- Guass's formula: **n x (n + 1) / 2**, which is the sum of n numbers
+- This way we can solve the formula such that:
+- let the total number of steps (answer) be **k**
+- **k x (k + 1) / 2** <= **n**
+- Then the equation for **k** become like this:
+- **k = sqrt( 2 * n + ( 1 / 4 ) ) - ( 1 / 2 )**
+- Hence, we can return the answer computed using above formala
+- Time complexity : **O(1)**
+- Space complexity : **O(1)**
 ​
+```
+class Solution {
+public int arrangeCoins(int num) {
+int k = (int)(Math.sqrt(2 * (long)num + 0.25) - 0.5);
+return k;
+}
+}
 ```
 ​
 ---
@@ -15,46 +31,14 @@
 ​
 ### Java Solution - Binary Search
 ​
-```
-​
-```
-​
----
-​
-​
-### Java Solution - Linear algorithm
-​
-- We need **n** coins for nth step:
-- so we can keep decrementing the given number **num**
-- while we increment the step & result for each iteration
-- if **num** becomes zero, we can return result
-- if **num** becomes negative, it means current step is incomplete. So we need decrement result and return result
-- Time Complexity: **O(N)**
-- Space Complexity: **O(1)**
+- If we observe the problem carefully at **ith** step, the number of coins required is the sum of **i** steps: ***1 + ... + (i-1) + i***
+- We can find the total number coins required at **ith** step using Guass's formula
+- Guass's formula: **n x (n + 1) / 2**, which is the sum of n numbers
+- So, we use this to check the coins required at each step
+- And, take maximum of **coins** & **mid**, where coins is the sum of **i* steps** and mid is the mid value of the range
+- Time complexity : **O(log N)**
+- Space complexity : **O(1)**
 ​
 ```
 class Solution {
 public int arrangeCoins(int num) {
-// TODO Determine no. of coins required to arrange complete staircase using
-// linear algo
-int result = 0;
-int step = 1;
-while (num >= 0) {
-num -= step;
-step++;
-result++;
-if (num < 0) {
-// When step is incomplete - num will become negative
-result--;
-}
-}
-return result;
-}
-}
-```
-​
----
-​
-**Credits:**
-- Solution video by NeetCode - https://www.youtube.com/watch?v=5rHz_6s2Buw
-- LeetCode Solution - https://leetcode.com/problems/arranging-coins/solution/
