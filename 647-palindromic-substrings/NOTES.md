@@ -2,7 +2,7 @@
 ​
 **Please 🔼 upvote this post if you find the answer useful & do comment about your thoughts 💬**
 ​
-## ✅ Simple Java Solution | Two Pointers
+## ✅ Simple Java Solution | Two Pointers | Faster than 75%
 ​
 ### Java Code
 ​
