@@ -1,18 +1,19 @@
 class Solution {
     public int arrangeCoins(int num) {
         // TODO Determine no. of coins required to arrange complete staircase using
-		// linear algo
-		int result = 0;
-		int step = 1;
-		while (num >= 0) {
-			num -= step;
-			step++;
-			result++;
-			if (num < 0) {
-				// When step is incomplete - num will become negative
-				result--;
+		// binary search
+		long left = 1, right = num;
+		long result = 0;
+		while (left <= right) {
+			long mid = left + (right - left) / 2;
+			long coins = (mid * (mid + 1)) / 2; // Gauss's formula
+			if (coins > num) {
+				right = mid - 1;
+			} else {
+				left = mid + 1;
+				result = Math.max(result, mid);
 			}
 		}
-		return result;
+		return (int) result;
     }
 }
