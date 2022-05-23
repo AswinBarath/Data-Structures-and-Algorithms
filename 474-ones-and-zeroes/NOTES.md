@@ -1,8 +1,8 @@
 # [474. Ones and Zeroes](https://leetcode.com/problems/ones-and-zeroes/)
 ​
-****
+**Please 🔼 upvote this post if you find the answer useful & do comment about your thoughts 💬**
 ​
-## ✅ Java | Bottom-Up DP | Top-Down DP | Recursion 🔥
+## ✅ Java | 3 Solutions | Bottom-Up DP | Top-Down DP | Recursion 🔥
 ​
 ---
 ​
@@ -17,10 +17,3 @@ int[][] dp;
 public int findMaxForm(String[] strs, int m, int n) {
 dp = new int[m + 1][n + 1];
 int consider = 0;
-int skip = 0;
-for (String s : strs) {
-int[] count = count(s);
-for (int zero = m; zero >= count[0]; zero--) {
-for (int one = n; one >= count[1]; one--) {
-consider = 1 + dp[zero - count[0]][one - count[1]];
-skip = dp[zero][one];
