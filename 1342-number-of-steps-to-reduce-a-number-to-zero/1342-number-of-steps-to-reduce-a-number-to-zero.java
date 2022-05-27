@@ -1,15 +1,9 @@
 class Solution {
-    public int numberOfSteps(int num) {
-        int count = 0;
-        while(num!=0) {
-            if(num%2 == 0) {
-                num/=2;
-                count++;
-            } else {
-                num-=1;
-                count++;
-            }
-        }
-        return count;
+    public int numberOfSteps (int num) {
+        System.out.println(Integer.toBinaryString(num));
+        System.out.println(Integer.bitCount(num));
+        int maxBinaryDigits = Integer.toBinaryString(num).length() - 1;
+        int numOfOnes = Integer.bitCount(num);
+	    return maxBinaryDigits + numOfOnes;
     }
 }
