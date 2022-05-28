@@ -1,0 +1,3 @@
+- Sort the array
+- Apply binary search to find the smallest element
+- The smallest element (x) must be exactly x numbers in nums that are greater than or equal to x.
