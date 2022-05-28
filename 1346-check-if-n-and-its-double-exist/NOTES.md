@@ -1,0 +1,4 @@
+- Intutively : we can run through the array (using a for loop) and for each element
+- I will calculate 2*arr[i] ---> and then search it up in the array by calling a function
+- search will be binary search to reduce time complexity
+- As, we are planning to use binary search we will first sort the array
