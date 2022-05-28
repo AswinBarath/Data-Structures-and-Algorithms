@@ -1,1 +1,3 @@
-​
+- In this problem we approach with Binary Search in a different way
+- Here, we iterate array 1 and take pointers from array 2 such that the conditions are applied in a binary search template
+- And then we store maximum of each valid pairs distance
