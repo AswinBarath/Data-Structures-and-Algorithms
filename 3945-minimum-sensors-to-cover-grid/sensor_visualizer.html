@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimum Sensors to Cover Grid - Visualizer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-item {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .nav-item.active {
+            background: rgba(255,255,255,0.2);
+            border-color: #3498db;
+        }
+
+        .content {
+            padding: 2rem;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        h2 {
+            color: #34495e;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .grid-container {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .example-section {
+            flex: 1;
+            min-width: 300px;
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .grid {
+            display: inline-grid;
+            gap: 2px;
+            background: #ddd;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .cell {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            position: relative;
+            background: white;
+            font-size: 12px;
+        }
+
+        .sensor {
+            background: #e74c3c !important;
+            color: white;
+            border-radius: 50%;
+        }
+
+        .covered {
+            background: rgba(46, 204, 113, 0.3);
+        }
+
+        .controls {
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .calculations {
+            background: #ecf0f1;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .code-container {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .copy-btn:hover {
+            background: #2980b9;
+        }
+
+        .problem-text {
+            line-height: 1.6;
+            margin: 1rem 0;
+        }
+
+        .step {
+            background: #f8f9fa;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 4px solid #3498db;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .legend {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #333;
+            border-radius: 3px;
+        }
+
+        .credits {
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9fa;
+            margin-top: 2rem;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <nav class="nav">
+                <div class="nav-item active" data-page="visualizer">Visualizer</div>
+                <div class="nav-item" data-page="description">Problem Description</div>
+                <div class="nav-item" data-page="solution">Solution Explained</div>
+                <div class="nav-item" data-page="code">Java Code</div>
+            </nav>
+        </div>
+
+        <div class="content">
+            <!-- Visualizer Page -->
+            <div class="page active" id="visualizer">
+                <h1>Minimum Sensors to Cover Grid - Visualizer</h1>
+                
+                <div class="controls">
+                    <button class="btn" onclick="loadExample(1)">Load Example 1</button>
+                    <button class="btn" onclick="loadExample(2)">Load Example 2</button>
+                    <button class="btn" onclick="generateRandomExample()">Generate New Example</button>
+                </div>
+
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color sensor"></div>
+                        <span>Sensor</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color covered"></div>
+                        <span>Covered Area</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: white;"></div>
+                        <span>Empty Cell</span>
+                    </div>
+                </div>
+
+                <div class="grid-container">
+                    <div class="example-section">
+                        <h3>Current Example</h3>
+                        <div id="currentGrid"></div>
+                        <div id="currentCalculations" class="calculations"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Problem Description Page -->
+            <div class="page" id="description">
+                <h1>Problem Description</h1>
+                <div class="problem-text">
+                    <h2>3648. Minimum Sensors to Cover Grid</h2>
+                    <p><strong>Difficulty:</strong> Hard</p>
+                    
+                    <p>You are given a 2D grid of size <code>m x n</code>. You need to place sensors to cover the entire grid. Each sensor can cover a rectangular area.</p>
+                    
+                    <p>A sensor at position <code>(r, c)</code> with coverage radius <code>k</code> can cover all cells <code>(i, j)</code> such that:</p>
+                    <ul style="margin: 1rem 0; padding-left: 2rem;">
+                        <li><code>r - k ≤ i ≤ r + k</code></li>
+                        <li><code>c - k ≤ j ≤ c + k</code></li>
+                    </ul>
+                    
+                    <p><strong>Goal:</strong> Find the minimum number of sensors needed to cover the entire grid.</p>
+                    
+                    <h3>Constraints:</h3>
+                    <ul style="margin: 1rem 0; padding-left: 2rem;">
+                        <li><code>1 ≤ m, n ≤ 50</code></li>
+                        <li><code>1 ≤ k ≤ min(m, n)</code></li>
+                    </ul>
+                    
+                    <h3>Examples:</h3>
+                    <p><strong>Example 1:</strong></p>
+                    <ul style="margin: 1rem 0; padding-left: 2rem;">
+                        <li>Grid: 3×3, Coverage radius: 1</li>
+                        <li>Minimum sensors: 4</li>
+                    </ul>
+                    
+                    <p><strong>Example 2:</strong></p>
+                    <ul style="margin: 1rem 0; padding-left: 2rem;">
+                        <li>Grid: 4×4, Coverage radius: 1</li>
+                        <li>Minimum sensors: 4</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Solution Explained Page -->
+            <div class="page" id="solution">
+                <h1>Solution Explained</h1>
+                
+                <div class="step">
+                    <h3>Step 1: Understanding the Coverage Pattern</h3>
+                    <p>Each sensor with radius k covers a square of size (2k+1) × (2k+1). The optimal placement minimizes overlap while ensuring complete coverage.</p>
+                </div>
+                
+                <div class="step">
+                    <h3>Step 2: Calculate Grid Division</h3>
+                    <p>For a grid of size m×n with sensor radius k:</p>
+                    <ul style="margin: 1rem 0; padding-left: 2rem;">
+                        <li>Each sensor covers (2k+1) cells in each direction</li>
+                        <li>Number of sensors needed in rows: ⌈m / (2k+1)⌉</li>
+                        <li>Number of sensors needed in columns: ⌈n / (2k+1)⌉</li>
+                    </ul>
+                </div>
+                
+                <div class="step">
+                    <h3>Step 3: Calculate Total Sensors</h3>
+                    <p>Total sensors = ⌈m / (2k+1)⌉ × ⌈n / (2k+1)⌉</p>
+                </div>
+                
+                <div class="step">
+                    <h3>Step 4: Optimal Placement Strategy</h3>
+                    <p>Place sensors at positions that maximize coverage without gaps:</p>
+                    <ul style="margin: 1rem 0; padding-left: 2rem;">
+                        <li>First sensor at (k, k)</li>
+                        <li>Subsequent sensors spaced (2k+1) apart</li>
+                        <li>Adjust boundary sensors to ensure complete coverage</li>
+                    </ul>
+                </div>
+
+                <div id="solutionVisualization">
+                    <h3>Example Walkthrough:</h3>
+                    <div id="solutionGrid"></div>
+                    <div id="solutionSteps"></div>
+                </div>
+            </div>
+
+            <!-- Java Code Page -->
+            <div class="page" id="code">
+                <h1>Java Solution</h1>
+                
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode()">Copy Code</button>
+                    <pre id="javaCode">public class Solution {
+    /**
+     * Calculates minimum number of sensors needed to cover entire grid
+     * @param m number of rows in grid
+     * @param n number of columns in grid  
+     * @param k coverage radius of each sensor
+     * @return minimum number of sensors required
+     */
+    public int minSensors(int m, int n, int k) {
+        // Each sensor covers a square of size (2k+1) x (2k+1)
+        int coverageSize = 2 * k + 1;
+        
+        // Calculate number of sensors needed in each dimension
+        int rowSensors = (int) Math.ceil((double) m / coverageSize);
+        int colSensors = (int) Math.ceil((double) n / coverageSize);
+        
+        // Total sensors is the product of row and column sensors
+        return rowSensors * colSensors;
+    }
+    
+    /**
+     * Returns optimal sensor positions for grid coverage
+     * @param m number of rows in grid
+     * @param n number of columns in grid
+     * @param k coverage radius of each sensor
+     * @return list of sensor positions as [row, col] pairs
+     */
+    public int[][] getSensorPositions(int m, int n, int k) {
+        int coverageSize = 2 * k + 1;
+        int rowSensors = (int) Math.ceil((double) m / coverageSize);
+        int colSensors = (int) Math.ceil((double) n / coverageSize);
+        
+        int[][] positions = new int[rowSensors * colSensors][2];
+        int index = 0;
+        
+        for (int i = 0; i < rowSensors; i++) {
+            for (int j = 0; j < colSensors; j++) {
+                // Calculate optimal position for this sensor
+                int row = Math.min(k + i * coverageSize, m - 1 - k);
+                int col = Math.min(k + j * coverageSize, n - 1 - k);
+                
+                // Ensure sensor is within grid bounds
+                row = Math.max(k, Math.min(row, m - 1 - k));
+                col = Math.max(k, Math.min(col, n - 1 - k));
+                
+                positions[index][0] = row;
+                positions[index][1] = col;
+                index++;
+            }
+        }
+        
+        return positions;
+    }
+    
+    /**
+     * Verifies if sensors provide complete grid coverage
+     * @param m number of rows in grid
+     * @param n number of columns in grid
+     * @param k coverage radius
+     * @param sensors array of sensor positions
+     * @return true if entire grid is covered
+     */
+    public boolean verifyCoverage(int m, int n, int k, int[][] sensors) {
+        boolean[][] covered = new boolean[m][n];
+        
+        // Mark all cells covered by each sensor
+        for (int[] sensor : sensors) {
+            int sensorRow = sensor[0];
+            int sensorCol = sensor[1];
+            
+            // Cover all cells within sensor's range
+            for (int i = Math.max(0, sensorRow - k); 
+                 i <= Math.min(m - 1, sensorRow + k); i++) {
+                for (int j = Math.max(0, sensorCol - k); 
+                     j <= Math.min(n - 1, sensorCol + k); j++) {
+                    covered[i][j] = true;
+                }
+            }
+        }
+        
+        // Check if all cells are covered
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (!covered[i][j]) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="credits">
+            <h3>Credits</h3>
+            <p><strong>Claude Code</strong> • <strong>Aswin Barath</strong></p>
+            <p>Interactive Visualizer for LeetCode Problem 3648</p>
+        </div>
+    </div>
+
+    <script>
+        let currentExample = null;
+        const colors = ['#e74c3c', '#3498db', '#f39c12', '#9b59b6', '#1abc9c', '#e67e22', '#34495e', '#95a5a6'];
+
+        // Navigation handling
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                
+                this.classList.add('active');
+                document.getElementById(this.dataset.page).classList.add('active');
+            });
+        });
+
+        function loadExample(exampleNum) {
+            if (exampleNum === 1) {
+                currentExample = {
+                    m: 3, n: 3, k: 1,
+                    name: "Example 1 (3×3, k=1)"
+                };
+            } else if (exampleNum === 2) {
+                currentExample = {
+                    m: 4, n: 4, k: 1,
+                    name: "Example 2 (4×4, k=1)"
+                };
+            }
+            
+            displayCurrentExample();
+        }
+
+        function generateRandomExample() {
+            const m = Math.floor(Math.random() * 8) + 3; // 3-10
+            const n = Math.floor(Math.random() * 8) + 3; // 3-10
+            const k = Math.floor(Math.random() * Math.min(m, n) / 2) + 1; // 1 to min(m,n)/2
+            
+            currentExample = {
+                m: m, n: n, k: k,
+                name: `Random Example (${m}×${n}, k=${k})`
+            };
+            
+            displayCurrentExample();
+        }
+
+        function calculateOptimalSensors(m, n, k) {
+            const coverageSize = 2 * k + 1;
+            const rowSensors = Math.ceil(m / coverageSize);
+            const colSensors = Math.ceil(n / coverageSize);
+            
+            const sensors = [];
+            for (let i = 0; i < rowSensors; i++) {
+                for (let j = 0; j < colSensors; j++) {
+                    let row = Math.min(k + i * coverageSize, m - 1 - k);
+                    let col = Math.min(k + j * coverageSize, n - 1 - k);
+                    
+                    row = Math.max(k, Math.min(row, m - 1 - k));
+                    col = Math.max(k, Math.min(col, n - 1 - k));
+                    
+                    sensors.push({row, col, color: colors[sensors.length % colors.length]});
+                }
+            }
+            
+            return {sensors, total: rowSensors * colSensors, rowSensors, colSensors, coverageSize};
+        }
+
+        function displayCurrentExample() {
+            if (!currentExample) return;
+            
+            const {m, n, k, name} = currentExample;
+            const result = calculateOptimalSensors(m, n, k);
+            
+            // Create grid
+            const gridHtml = createGridVisualization(m, n, k, result.sensors);
+            document.getElementById('currentGrid').innerHTML = `<h4>${name}</h4>${gridHtml}`;
+            
+            // Create calculations
+            const calcHtml = `
+                <h4>Calculations:</h4>
+                <p><strong>Coverage per sensor:</strong> (2k+1)×(2k+1) = (2×${k}+1)×(2×${k}+1) = ${result.coverageSize}×${result.coverageSize}</p>
+                <p><strong>Row sensors needed:</strong> ⌈${m} / ${result.coverageSize}⌉ = ⌈${(m/result.coverageSize).toFixed(2)}⌉ = ${result.rowSensors}</p>
+                <p><strong>Column sensors needed:</strong> ⌈${n} / ${result.coverageSize}⌉ = ⌈${(n/result.coverageSize).toFixed(2)}⌉ = ${result.colSensors}</p>
+                <p><strong>Total sensors:</strong> ${result.rowSensors} × ${result.colSensors} = <strong>${result.total}</strong></p>
+                <p><strong>Area coverage:</strong> ${calculateCoverage(m, n, k, result.sensors)} / ${m * n} cells = ${(calculateCoverage(m, n, k, result.sensors) / (m * n) * 100).toFixed(1)}%</p>
+                <h5>Sensor Positions:</h5>
+                ${result.sensors.map((s, i) => `<p>Sensor ${i+1}: (${s.row}, ${s.col})</p>`).join('')}
+            `;
+            document.getElementById('currentCalculations').innerHTML = calcHtml;
+        }
+
+        function createGridVisualization(m, n, k, sensors) {
+            // Create coverage map
+            const coverage = Array(m).fill().map(() => Array(n).fill(null));
+            
+            // Mark coverage for each sensor
+            sensors.forEach((sensor, sensorIndex) => {
+                for (let i = Math.max(0, sensor.row - k); i <= Math.min(m - 1, sensor.row + k); i++) {
+                    for (let j = Math.max(0, sensor.col - k); j <= Math.min(n - 1, sensor.col + k); j++) {
+                        if (coverage[i][j] === null) {
+                            coverage[i][j] = sensorIndex;
+                        }
+                    }
+                }
+            });
+            
+            let gridHtml = `<div class="grid" style="grid-template-columns: repeat(${n}, 40px);">`;
+            
+            for (let i = 0; i < m; i++) {
+                for (let j = 0; j < n; j++) {
+                    let cellClass = 'cell';
+                    let cellContent = '';
+                    let style = '';
+                    
+                    // Check if this cell has a sensor
+                    const sensorIndex = sensors.findIndex(s => s.row === i && s.col === j);
+                    if (sensorIndex !== -1) {
+                        cellClass += ' sensor';
+                        cellContent = 'S' + (sensorIndex + 1);
+                        style = `background: ${sensors[sensorIndex].color} !important;`;
+                    } else if (coverage[i][j] !== null) {
+                        cellClass += ' covered';
+                        style = `background: ${sensors[coverage[i][j]].color}33;`;
+                    }
+                    
+                    gridHtml += `<div class="${cellClass}" style="${style}">${cellContent}</div>`;
+                }
+            }
+            
+            gridHtml += '</div>';
+            return gridHtml;
+        }
+
+        function calculateCoverage(m, n, k, sensors) {
+            const covered = Array(m).fill().map(() => Array(n).fill(false));
+            
+            sensors.forEach(sensor => {
+                for (let i = Math.max(0, sensor.row - k); i <= Math.min(m - 1, sensor.row + k); i++) {
+                    for (let j = Math.max(0, sensor.col - k); j <= Math.min(n - 1, sensor.col + k); j++) {
+                        covered[i][j] = true;
+                    }
+                }
+            });
+            
+            let count = 0;
+            for (let i = 0; i < m; i++) {
+                for (let j = 0; j < n; j++) {
+                    if (covered[i][j]) count++;
+                }
+            }
+            
+            return count;
+        }
+
+        function copyCode() {
+            const codeElement = document.getElementById('javaCode');
+            const textArea = document.createElement('textarea');
+            textArea.value = codeElement.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            const copyBtn = document.querySelector('.copy-btn');
+            const originalText = copyBtn.textContent;
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => {
+                copyBtn.textContent = originalText;
+            }, 2000);
+        }
+
+        // Load Example 1 by default
+        loadExample(1);
+    </script>
+</body>
+</html>
