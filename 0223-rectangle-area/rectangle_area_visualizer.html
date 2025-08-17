@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rectangle Area Visualizer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        
+        // Initialize with Example 2
+        showExample(2);
+        
+        .header-nav {
+            background: rgba(0,0,0,0.1);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
+        
+        .nav-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-btn:hover, .nav-btn.active {
+            background: rgba(255,255,255,0.9);
+            color: #2c3e50;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .page-header h1 {
+            color: #2c3e50;
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        
+        .page-header p {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+        
+        .examples-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .example-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            border: 2px solid #e9ecef;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .example-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .example-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .coordinates {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-family: 'Courier New', monospace;
+            border-left: 4px solid #3498db;
+        }
+        
+        .area-calculations {
+            background: #fff5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .total-calculation {
+            background: #f0fff4;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2ecc71;
+            font-weight: bold;
+        }
+        
+        .rect-a { color: #e74c3c; font-weight: bold; }
+        .rect-b { color: #2ecc71; font-weight: bold; }
+        .overlap { color: #9b59b6; font-weight: bold; }
+        
+        .canvas-container {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        canvas {
+            border: 2px solid #34495e;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .result {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            padding: 10px;
+            border-radius: 6px;
+        }
+        
+        .controls {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+        }
+        
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        
+        .problem-content {
+            line-height: 1.6;
+            color: #2c3e50;
+        }
+        
+        .problem-content h2 {
+            color: #3498db;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        
+        .problem-content h3 {
+            color: #e67e22;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+        
+        .code-container {
+            position: relative;
+            margin: 20px 0;
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 25px;
+            border-radius: 12px;
+            font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+            overflow-x: auto;
+            border: 1px solid #3c3c3c;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            line-height: 1.6;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #404040;
+            color: #d4d4d4;
+            border: 1px solid #666;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        
+        .copy-btn:hover {
+            background: #4a9eff;
+            color: white;
+            border-color: #4a9eff;
+        }
+        
+        .copy-btn.copied {
+            background: #28a745;
+            color: white;
+            border-color: #28a745;
+        }
+        
+        .keyword { color: #569cd6; font-weight: bold; }
+        .type { color: #4ec9b0; }
+        .method { color: #dcdcaa; }
+        .param { color: #9cdcfe; }
+        .comment { color: #6a9955; font-style: italic; }
+        .number { color: #b5cea8; }
+        .operator { color: #d4d4d4; }
+        .string { color: #ce9178; }
+        
+        .step-example {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #3498db;
+        }
+        
+        .credits {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 10px;
+        }
+        
+        .credits h3 {
+            margin: 0 0 10px 0;
+        }
+        
+        .credits p {
+            margin: 0;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-nav">
+        <div class="nav-container">
+            <button class="nav-btn active" onclick="showPage('visualizer')">Interactive Examples</button>
+            <button class="nav-btn" onclick="showPage('description')">Problem Description</button>
+            <button class="nav-btn" onclick="showPage('solution')">Solution Explained</button>
+            <button class="nav-btn" onclick="showPage('code')">Java Solution</button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Interactive Examples Page -->
+        <div id="visualizer" class="page active">
+            <div class="page-header">
+                <h1>🔳 LeetCode 223: Rectangle Area</h1>
+                <p>Interactive visualization of overlapping rectangles and area calculation</p>
+            </div>
+            
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #e74c3c;"></div>
+                    <span class="rect-a">Rectangle A</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #2ecc71;"></div>
+                    <span class="rect-b">Rectangle B</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #9b59b6;"></div>
+                    <span class="overlap">Overlap Area</span>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button class="btn" onclick="showExample(2)">Show Example 2</button>
+                <button class="btn" onclick="generateNewExample()">Generate Overlapping Example</button>
+            </div>
+            
+            <div class="examples-container" id="examples-container">
+                <!-- Examples will be generated here -->
+            </div>
+        </div>
+        
+        <!-- Problem Description Page -->
+        <div id="description" class="page">
+            <div class="page-header">
+                <h1>📝 Problem Description</h1>
+            </div>
+            
+            <div class="problem-content">
+                <h2>Rectangle Area (LeetCode 223)</h2>
+                
+                <p>Given the coordinates of two axis-aligned rectangles in a 2D plane, return the total area covered by the two rectangles.</p>
+                
+                <p>The first rectangle is defined by its bottom-left corner <code>(ax1, ay1)</code> and its top-right corner <code>(ax2, ay2)</code>.</p>
+                
+                <p>The second rectangle is defined by its bottom-left corner <code>(bx1, by1)</code> and its top-right corner <code>(bx2, by2)</code>.</p>
+                
+                <h3>Constraints:</h3>
+                <ul>
+                    <li>-10<sup>4</sup> ≤ ax1 ≤ ax2 ≤ 10<sup>4</sup></li>
+                    <li>-10<sup>4</sup> ≤ ay1 ≤ ay2 ≤ 10<sup>4</sup></li>
+                    <li>-10<sup>4</sup> ≤ bx1 ≤ bx2 ≤ 10<sup>4</sup></li>
+                    <li>-10<sup>4</sup> ≤ by1 ≤ by2 ≤ 10<sup>4</sup></li>
+                </ul>
+                
+                <h3>Examples:</h3>
+                
+                <div class="step-example">
+                    <strong>Example 1:</strong><br>
+                    <strong>Input:</strong> ax1 = -3, ay1 = 0, ax2 = 3, ay2 = 4, bx1 = 0, by1 = -1, bx2 = 9, by2 = 2<br>
+                    <strong>Output:</strong> 45
+                </div>
+                
+                <div class="step-example">
+                    <strong>Example 2:</strong><br>
+                    <strong>Input:</strong> ax1 = -2, ay1 = -2, ax2 = 2, ay2 = 2, bx1 = -2, by1 = -2, bx2 = 2, by2 = 2<br>
+                    <strong>Output:</strong> 16
+                </div>
+                
+                <h3>Key Insight:</h3>
+                <p>The total area covered by two rectangles is:</p>
+                <p><strong>Total Area = Area of Rectangle A + Area of Rectangle B - Overlap Area</strong></p>
+                
+                <p>We subtract the overlap area because it would be counted twice if we just added the areas of both rectangles.</p>
+            </div>
+        </div>
+        
+        <!-- Solution Explained Page -->
+        <div id="solution" class="page">
+            <div class="page-header">
+                <h1>💡 Solution Explained</h1>
+            </div>
+            
+            <div class="problem-content">
+                <h2>Step-by-Step Solution</h2>
+                
+                <div class="step-example">
+                    <h3>Step 1: Calculate Individual Rectangle Areas</h3>
+                    <p>For any rectangle with corners (x1, y1) and (x2, y2):</p>
+                    <p><strong>Area = (x2 - x1) × (y2 - y1)</strong></p>
+                </div>
+                
+                <div class="step-example">
+                    <h3>Step 2: Find Overlap Dimensions</h3>
+                    <p>Two rectangles overlap if:</p>
+                    <ul>
+                        <li>They overlap horizontally: <code>max(ax1, bx1) < min(ax2, bx2)</code></li>
+                        <li>They overlap vertically: <code>max(ay1, by1) < min(ay2, by2)</code></li>
+                    </ul>
+                    
+                    <p>If they overlap, the overlap rectangle has:</p>
+                    <ul>
+                        <li><strong>Left edge:</strong> max(ax1, bx1)</li>
+                        <li><strong>Right edge:</strong> min(ax2, bx2)</li>
+                        <li><strong>Bottom edge:</strong> max(ay1, by1)</li>
+                        <li><strong>Top edge:</strong> min(ay2, by2)</li>
+                    </ul>
+                </div>
+                
+                <div class="step-example">
+                    <h3>Step 3: Calculate Overlap Area</h3>
+                    <p><strong>Overlap Width =</strong> max(0, min(ax2, bx2) - max(ax1, bx1))</p>
+                    <p><strong>Overlap Height =</strong> max(0, min(ay2, by2) - max(ay1, by1))</p>
+                    <p><strong>Overlap Area =</strong> Overlap Width × Overlap Height</p>
+                    
+                    <p><em>Note: We use max(0, ...) to handle cases where rectangles don't overlap.</em></p>
+                </div>
+                
+                <div class="step-example">
+                    <h3>Step 4: Apply Formula</h3>
+                    <p><strong>Total Area = Area A + Area B - Overlap Area</strong></p>
+                </div>
+                
+                <h2>Example Walkthrough</h2>
+                
+                <div class="step-example">
+                    <strong>Example:</strong> Rectangle A: (-1, -1) to (1, 1), Rectangle B: (0, 0) to (2, 2)<br><br>
+                    
+                    <strong>Step 1:</strong> Individual Areas<br>
+                    • Area A = (1 - (-1)) × (1 - (-1)) = 2 × 2 = 4<br>
+                    • Area B = (2 - 0) × (2 - 0) = 2 × 2 = 4<br><br>
+                    
+                    <strong>Step 2:</strong> Overlap Bounds<br>
+                    • Left: max(-1, 0) = 0<br>
+                    • Right: min(1, 2) = 1<br>
+                    • Bottom: max(-1, 0) = 0<br>
+                    • Top: min(1, 2) = 1<br><br>
+                    
+                    <strong>Step 3:</strong> Overlap Area<br>
+                    • Width: max(0, 1 - 0) = 1<br>
+                    • Height: max(0, 1 - 0) = 1<br>
+                    • Overlap Area = 1 × 1 = 1<br><br>
+                    
+                    <strong>Step 4:</strong> Total Area<br>
+                    • Total = 4 + 4 - 1 = 7
+                </div>
+            </div>
+        </div>
+        
+        <!-- Java Code Page -->
+        <div id="code" class="page">
+            <div class="page-header">
+                <h1>☕ Java Solution</h1>
+            </div>
+            
+            <div class="problem-content">
+                <h2>Complete Java Implementation</h2>
+                
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this, 'code1')">📋 Copy Code</button>
+                    <div class="code-block" id="code1">
+    <span class="keyword">class</span> <span class="type">Solution</span> <span class="operator">{</span><br>
+        <span class="comment">/**<br>
+         * Computes the total area covered by two axis-aligned rectangles.<br>
+         * <br>
+         * @param ax1 x-coordinate of the bottom-left corner of rectangle A<br>
+         * @param ay1 y-coordinate of the bottom-left corner of rectangle A<br>
+         * @param ax2 x-coordinate of the top-right corner of rectangle A<br>
+         * @param ay2 y-coordinate of the top-right corner of rectangle A<br>
+         * @param bx1 x-coordinate of the bottom-left corner of rectangle B<br>
+         * @param by1 y-coordinate of the bottom-left corner of rectangle B<br>
+         * @param bx2 x-coordinate of the top-right corner of rectangle B<br>
+         * @param by2 y-coordinate of the top-right corner of rectangle B<br>
+         * @return total area covered by both rectangles<br>
+         */</span><br>
+        <span class="keyword">public</span> <span class="type">int</span> <span class="method">computeArea</span><span class="operator">(</span><span class="type">int</span> <span class="param">ax1</span><span class="operator">,</span> <span class="type">int</span> <span class="param">ay1</span><span class="operator">,</span> <span class="type">int</span> <span class="param">ax2</span><span class="operator">,</span> <span class="type">int</span> <span class="param">ay2</span><span class="operator">,</span><br>
+                              <span class="type">int</span> <span class="param">bx1</span><span class="operator">,</span> <span class="type">int</span> <span class="param">by1</span><span class="operator">,</span> <span class="type">int</span> <span class="param">bx2</span><span class="operator">,</span> <span class="type">int</span> <span class="param">by2</span><span class="operator">)</span> <span class="operator">{</span><br>
+            <br>
+            <span class="comment">// Step 1: Calculate individual rectangle areas</span><br>
+            <span class="type">int</span> areaA <span class="operator">=</span> <span class="operator">(</span>ax2 <span class="operator">-</span> ax1<span class="operator">)</span> <span class="operator">*</span> <span class="operator">(</span>ay2 <span class="operator">-</span> ay1<span class="operator">)</span><span class="operator">;</span><br>
+            <span class="type">int</span> areaB <span class="operator">=</span> <span class="operator">(</span>bx2 <span class="operator">-</span> bx1<span class="operator">)</span> <span class="operator">*</span> <span class="operator">(</span>by2 <span class="operator">-</span> by1<span class="operator">)</span><span class="operator">;</span><br>
+            <br>
+            <span class="comment">// Step 2: Calculate overlap dimensions</span><br>
+            <span class="type">int</span> overlapWidth <span class="operator">=</span> <span class="type">Math</span><span class="operator">.</span><span class="method">max</span><span class="operator">(</span><span class="number">0</span><span class="operator">,</span> <span class="type">Math</span><span class="operator">.</span><span class="method">min</span><span class="operator">(</span>ax2<span class="operator">,</span> bx2<span class="operator">)</span> <span class="operator">-</span> <span class="type">Math</span><span class="operator">.</span><span class="method">max</span><span class="operator">(</span>ax1<span class="operator">,</span> bx1<span class="operator">)</span><span class="operator">)</span><span class="operator">;</span><br>
+            <span class="type">int</span> overlapHeight <span class="operator">=</span> <span class="type">Math</span><span class="operator">.</span><span class="method">max</span><span class="operator">(</span><span class="number">0</span><span class="operator">,</span> <span class="type">Math</span><span class="operator">.</span><span class="method">min</span><span class="operator">(</span>ay2<span class="operator">,</span> by2<span class="operator">)</span> <span class="operator">-</span> <span class="type">Math</span><span class="operator">.</span><span class="method">max</span><span class="operator">(</span>ay1<span class="operator">,</span> by1<span class="operator">)</span><span class="operator">)</span><span class="operator">;</span><br>
+            <br>
+            <span class="comment">// Step 3: Calculate overlap area</span><br>
+            <span class="type">int</span> overlapArea <span class="operator">=</span> overlapWidth <span class="operator">*</span> overlapHeight<span class="operator">;</span><br>
+            <br>
+            <span class="comment">// Step 4: Return total area (avoiding double counting)</span><br>
+            <span class="keyword">return</span> areaA <span class="operator">+</span> areaB <span class="operator">-</span> overlapArea<span class="operator">;</span><br>
+        <span class="operator">}</span><br>
+    <span class="operator">}</span>
+                    </div>
+                </div>
+                
+                <h2>Alternative Implementation with Helper Method</h2>
+                
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this, 'code2')">📋 Copy Code</button>
+                    <div class="code-block" id="code2">
+<span class="keyword">class</span> <span class="type">Solution</span> <span class="operator">{</span><br>
+    <br>
+    <span class="comment">/**<br>
+     * Computes the total area covered by two axis-aligned rectangles.<br>
+     * Uses helper methods for better code organization and readability.<br>
+     * <br>
+     * @param ax1 x-coordinate of the bottom-left corner of rectangle A<br>
+     * @param ay1 y-coordinate of the bottom-left corner of rectangle A<br>
+     * @param ax2 x-coordinate of the top-right corner of rectangle A<br>
+     * @param ay2 y-coordinate of the top-right corner of rectangle A<br>
+     * @param bx1 x-coordinate of the bottom-left corner of rectangle B<br>
+     * @param by1 y-coordinate of the bottom-left corner of rectangle B<br>
+     * @param bx2 x-coordinate of the top-right corner of rectangle B<br>
+     * @param by2 y-coordinate of the top-right corner of rectangle B<br>
+     * @return total area covered by both rectangles<br>
+     */</span><br>
+    <span class="keyword">public</span> <span class="type">int</span> <span class="method">computeArea</span><span class="operator">(</span><span class="type">int</span> <span class="param">ax1</span><span class="operator">,</span> <span class="type">int</span> <span class="param">ay1</span><span class="operator">,</span> <span class="type">int</span> <span class="param">ax2</span><span class="operator">,</span> <span class="type">int</span> <span class="param">ay2</span><span class="operator">,</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="type">int</span> <span class="param">bx1</span><span class="operator">,</span> <span class="type">int</span> <span class="param">by1</span><span class="operator">,</span> <span class="type">int</span> <span class="param">bx2</span><span class="operator">,</span> <span class="type">int</span> <span class="param">by2</span><span class="operator">)</span> <span class="operator">{</span><br>
+        <br>
+        <span class="type">int</span> areaA <span class="operator">=</span> <span class="method">calculateRectangleArea</span><span class="operator">(</span>ax1<span class="operator">,</span> ay1<span class="operator">,</span> ax2<span class="operator">,</span> ay2<span class="operator">)</span><span class="operator">;</span><br>
+        <span class="type">int</span> areaB <span class="operator">=</span> <span class="method">calculateRectangleArea</span><span class="operator">(</span>bx1<span class="operator">,</span> by1<span class="operator">,</span> bx2<span class="operator">,</span> by2<span class="operator">)</span><span class="operator">;</span><br>
+        <span class="type">int</span> overlapArea <span class="operator">=</span> <span class="method">calculateOverlapArea</span><span class="operator">(</span>ax1<span class="operator">,</span> ay1<span class="operator">,</span> ax2<span class="operator">,</span> ay2<span class="operator">,</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bx1<span class="operator">,</span> by1<span class="operator">,</span> bx2<span class="operator">,</span> by2<span class="operator">)</span><span class="operator">;</span><br>
+        <br>
+        <span class="keyword">return</span> areaA <span class="operator">+</span> areaB <span class="operator">-</span> overlapArea<span class="operator">;</span><br>
+    <span class="operator">}</span><br>
+    <br>
+    <span class="comment">/**<br>
+     * Calculates the area of a single rectangle.<br>
+     * <br>
+     * @param x1 x-coordinate of bottom-left corner<br>
+     * @param y1 y-coordinate of bottom-left corner<br>
+     * @param x2 x-coordinate of top-right corner<br>
+     * @param y2 y-coordinate of top-right corner<br>
+     * @return area of the rectangle<br>
+     */</span><br>
+    <span class="keyword">private</span> <span class="type">int</span> <span class="method">calculateRectangleArea</span><span class="operator">(</span><span class="type">int</span> <span class="param">x1</span><span class="operator">,</span> <span class="type">int</span> <span class="param">y1</span><span class="operator">,</span> <span class="type">int</span> <span class="param">x2</span><span class="operator">,</span> <span class="type">int</span> <span class="param">y2</span><span class="operator">)</span> <span class="operator">{</span><br>
+        <span class="keyword">return</span> <span class="operator">(</span>x2 <span class="operator">-</span> x1<span class="operator">)</span> <span class="operator">*</span> <span class="operator">(</span>y2 <span class="operator">-</span> y1<span class="operator">)</span><span class="operator">;</span><br>
+    <span class="operator">}</span><br>
+    <br>
+    <span class="comment">/**<br>
+     * Calculates the overlap area between two rectangles.<br>
+     * <br>
+     * @param ax1 x-coordinate of bottom-left corner of rectangle A<br>
+     * @param ay1 y-coordinate of bottom-left corner of rectangle A<br>
+     * @param ax2 x-coordinate of top-right corner of rectangle A<br>
+     * @param ay2 y-coordinate of top-right corner of rectangle A<br>
+     * @param bx1 x-coordinate of bottom-left corner of rectangle B<br>
+     * @param by1 y-coordinate of bottom-left corner of rectangle B<br>
+     * @param bx2 x-coordinate of top-right corner of rectangle B<br>
+     * @param by2 y-coordinate of top-right corner of rectangle B<br>
+     * @return overlap area between the two rectangles<br>
+     */</span><br>
+    <span class="keyword">private</span> <span class="type">int</span> <span class="method">calculateOverlapArea</span><span class="operator">(</span><span class="type">int</span> <span class="param">ax1</span><span class="operator">,</span> <span class="type">int</span> <span class="param">ay1</span><span class="operator">,</span> <span class="type">int</span> <span class="param">ax2</span><span class="operator">,</span> <span class="type">int</span> <span class="param">ay2</span><span class="operator">,</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="type">int</span> <span class="param">bx1</span><span class="operator">,</span> <span class="type">int</span> <span class="param">by1</span><span class="operator">,</span> <span class="type">int</span> <span class="param">bx2</span><span class="operator">,</span> <span class="type">int</span> <span class="param">by2</span><span class="operator">)</span> <span class="operator">{</span><br>
+        <span class="comment">// Find overlap bounds</span><br>
+        <span class="type">int</span> left <span class="operator">=</span> <span class="type">Math</span><span class="operator">.</span><span class="method">max</span><span class="operator">(</span>ax1<span class="operator">,</span> bx1<span class="operator">)</span><span class="operator">;</span><br>
+        <span class="type">int</span> right <span class="operator">=</span> <span class="type">Math</span><span class="operator">.</span><span class="method">min</span><span class="operator">(</span>ax2<span class="operator">,</span> bx2<span class="operator">)</span><span class="operator">;</span><br>
+        <span class="type">int</span> bottom <span class="operator">=</span> <span class="type">Math</span><span class="operator">.</span><span class="method">max</span><span class="operator">(</span>ay1<span class="operator">,</span> by1<span class="operator">)</span><span class="operator">;</span><br>
+        <span class="type">int</span> top <span class="operator">=</span> <span class="type">Math</span><span class="operator">.</span><span class="method">min</span><span class="operator">(</span>ay2<span class="operator">,</span> by2<span class="operator">)</span><span class="operator">;</span><br>
+        <br>
+        <span class="comment">// Check if there's actually an overlap</span><br>
+        <span class="keyword">if</span> <span class="operator">(</span>left <span class="operator">>=</span> right <span class="operator">||</span> bottom <span class="operator">>=</span> top<span class="operator">)</span> <span class="operator">{</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="number">0</span><span class="operator">;</span> <span class="comment">// No overlap</span><br>
+        <span class="operator">}</span><br>
+        <br>
+        <span class="keyword">return</span> <span class="operator">(</span>right <span class="operator">-</span> left<span class="operator">)</span> <span class="operator">*</span> <span class="operator">(</span>top <span class="operator">-</span> bottom<span class="operator">)</span><span class="operator">;</span><br>
+    <span class="operator">}</span><br>
+<span class="operator">}</span>
+                    </div>
+                </div>
+                
+                <h2>Time & Space Complexity</h2>
+                
+                <div class="step-example">
+                    <h3>Time Complexity: O(1)</h3>
+                    <p>All operations are constant time arithmetic calculations.</p>
+                    
+                    <h3>Space Complexity: O(1)</h3>
+                    <p>Only using a constant amount of extra space for variables.</p>
+                </div>
+                
+                <h2>Key Points to Remember</h2>
+                
+                <div class="step-example">
+                    <ul>
+                        <li><strong>Integer Overflow:</strong> Be careful with large coordinates that might cause overflow when multiplied.</li>
+                        <li><strong>No Overlap Case:</strong> When rectangles don't overlap, Math.max(0, negative_value) ensures overlap area is 0.</li>
+                        <li><strong>Edge Cases:</strong> Handle cases where rectangles just touch (no actual overlap area).</li>
+                        <li><strong>Coordinate System:</strong> Remember that (x1, y1) is bottom-left and (x2, y2) is top-right.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="credits">
+            <h3>Credits</h3>
+            <p style="color: white;"></p>
+                🤖 <a href="https://claude.ai/new" target="_blank" style="color: white; text-decoration: underline;">Claude Code</a> | 👨‍💻 <a href="https://github.com/AswinBarath" target="_blank" style="color: white; text-decoration: underline;">Aswin Barath</a>
+            </p>
+    </div>
+
+    <script>
+        const examples = [
+            // Example 2 from LeetCode
+            {
+                title: "LeetCode Example 2",
+                ax1: -2, ay1: -2, ax2: 2, ay2: 2,
+                bx1: -2, by1: -2, bx2: 2, by2: 2,
+                expected: 16
+            }
+        ];
+        
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        function calculateArea(ax1, ay1, ax2, ay2, bx1, by1, bx2, by2) {
+            const areaA = (ax2 - ax1) * (ay2 - ay1);
+            const areaB = (bx2 - bx1) * (by2 - by1);
+            
+            // Calculate overlap
+            const overlapWidth = Math.max(0, Math.min(ax2, bx2) - Math.max(ax1, bx1));
+            const overlapHeight = Math.max(0, Math.min(ay2, by2) - Math.max(ay1, by1));
+            const overlapArea = overlapWidth * overlapHeight;
+            
+            return {
+                areaA,
+                areaB,
+                overlapArea,
+                totalArea: areaA + areaB - overlapArea
+            };
+        }
+        
+        function drawRectangle(ctx, x1, y1, x2, y2, scaleX, scaleY, offsetX, offsetY, fillColor, strokeColor, label) {
+            const screenX1 = x1 * scaleX + offsetX;
+            const screenY1 = offsetY - y1 * scaleY;
+            const screenX2 = x2 * scaleX + offsetX;
+            const screenY2 = offsetY - y2 * scaleY;
+            
+            const width = screenX2 - screenX1;
+            const height = screenY2 - screenY1;
+            
+            ctx.fillStyle = fillColor;
+            ctx.fillRect(screenX1, screenY2, width, -height);
+            
+            ctx.strokeStyle = strokeColor;
+            ctx.lineWidth = 2;
+            ctx.strokeRect(screenX1, screenY2, width, -height);
+            
+            // Label
+            ctx.fillStyle = strokeColor;
+            ctx.font = 'bold 14px Arial';
+            ctx.fillText(label, screenX1 + 5, screenY2 + 20);
+        }
+        
+        function drawOverlap(ctx, ax1, ay1, ax2, ay2, bx1, by1, bx2, by2, scaleX, scaleY, offsetX, offsetY) {
+            const overlapX1 = Math.max(ax1, bx1);
+            const overlapY1 = Math.max(ay1, by1);
+            const overlapX2 = Math.min(ax2, bx2);
+            const overlapY2 = Math.min(ay2, by2);
+            
+            if (overlapX1 < overlapX2 && overlapY1 < overlapY2) {
+                const screenX1 = overlapX1 * scaleX + offsetX;
+                const screenY1 = offsetY - overlapY1 * scaleY;
+                const screenX2 = overlapX2 * scaleX + offsetX;
+                const screenY2 = offsetY - overlapY2 * scaleY;
+                
+                const width = screenX2 - screenX1;
+                const height = screenY2 - screenY1;
+                
+                ctx.fillStyle = 'rgba(155, 89, 182, 0.8)';
+                ctx.fillRect(screenX1, screenY2, width, -height);
+                
+                ctx.strokeStyle = '#8e44ad';
+                ctx.lineWidth = 3;
+                ctx.strokeRect(screenX1, screenY2, width, -height);
+                
+                // Add overlap label
+                ctx.fillStyle = '#8e44ad';
+                ctx.font = 'bold 12px Arial';
+                ctx.fillText('Overlap', screenX1 + width/2 - 25, screenY2 + height/2);
+            }
+        }
+        
+        function drawGrid(ctx, canvas, minX, maxX, minY, maxY, scaleX, scaleY, offsetX, offsetY) {
+            ctx.strokeStyle = '#ecf0f1';
+            ctx.lineWidth = 1;
+            
+            // Vertical grid lines
+            for (let x = minX; x <= maxX; x++) {
+                const screenX = x * scaleX + offsetX;
+                ctx.beginPath();
+                ctx.moveTo(screenX, 0);
+                ctx.lineTo(screenX, canvas.height);
+                ctx.stroke();
+            }
+            
+            // Horizontal grid lines
+            for (let y = minY; y <= maxY; y++) {
+                const screenY = offsetY - y * scaleY;
+                ctx.beginPath();
+                ctx.moveTo(0, screenY);
+                ctx.lineTo(canvas.width, screenY);
+                ctx.stroke();
+            }
+        }
+        
+        function drawAxes(ctx, canvas, minX, maxX, minY, maxY, scaleX, scaleY, offsetX, offsetY) {
+            ctx.strokeStyle = '#34495e';
+            ctx.lineWidth = 2;
+            
+            // X-axis
+            const xAxisY = offsetY;
+            ctx.beginPath();
+            ctx.moveTo(0, xAxisY);
+            ctx.lineTo(canvas.width, xAxisY);
+            ctx.stroke();
+            
+            // Y-axis
+            const yAxisX = offsetX;
+            ctx.beginPath();
+            ctx.moveTo(yAxisX, 0);
+            ctx.lineTo(yAxisX, canvas.height);
+            ctx.stroke();
+            
+            // X-axis labels
+            ctx.fillStyle = '#2c3e50';
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'center';
+            for (let x = minX; x <= maxX; x++) {
+                if (x !== 0) {
+                    const screenX = x * scaleX + offsetX;
+                    ctx.fillText(x.toString(), screenX, xAxisY + 20);
+                }
+            }
+            
+            // Y-axis labels
+            ctx.textAlign = 'right';
+            for (let y = minY; y <= maxY; y++) {
+                if (y !== 0) {
+                    const screenY = offsetY - y * scaleY;
+                    ctx.fillText(y.toString(), yAxisX - 10, screenY + 5);
+                }
+            }
+            
+            // Origin
+            ctx.textAlign = 'right';
+            ctx.fillText('0', yAxisX - 5, xAxisY + 15);
+        }
+        
+        function visualizeExample(example, container) {
+            const { ax1, ay1, ax2, ay2, bx1, by1, bx2, by2 } = example;
+            
+            // Calculate areas
+            const areas = calculateArea(ax1, ay1, ax2, ay2, bx1, by1, bx2, by2);
+            
+            // Create example card
+            const card = document.createElement('div');
+            card.className = 'example-card';
+            
+            // Title
+            const title = document.createElement('div');
+            title.className = 'example-title';
+            title.textContent = example.title;
+            card.appendChild(title);
+            
+            // Coordinates display
+            const coords = document.createElement('div');
+            coords.className = 'coordinates';
+            coords.innerHTML = `
+                <div><span class="rect-a">Rectangle A:</span> (${ax1}, ${ay1}) to (${ax2}, ${ay2})</div>
+                <div><span class="rect-b">Rectangle B:</span> (${bx1}, ${by1}) to (${bx2}, ${by2})</div>
+            `;
+            card.appendChild(coords);
+            
+            // Area calculations
+            const areaCalcs = document.createElement('div');
+            areaCalcs.className = 'area-calculations';
+            areaCalcs.innerHTML = `
+                <div><span class="rect-a">Area A:</span> ${areas.areaA} = (${ax2} - ${ax1}) × (${ay2} - ${ay1}) = ${ax2 - ax1} × ${ay2 - ay1}</div>
+                <div><span class="rect-b">Area B:</span> ${areas.areaB} = (${bx2} - ${bx1}) × (${by2} - ${by1}) = ${bx2 - bx1} × ${by2 - by1}</div>
+                <div><span class="overlap">Overlap Area:</span> ${areas.overlapArea}</div>
+            `;
+            card.appendChild(areaCalcs);
+            
+            // Total calculation
+            const totalCalc = document.createElement('div');
+            totalCalc.className = 'total-calculation';
+            totalCalc.innerHTML = `
+                <div><strong>Total Coverage Calculation:</strong></div>
+                <div>Area A + Area B - Overlap = ${areas.areaA} + ${areas.areaB} - ${areas.overlapArea} = ${areas.totalArea}</div>
+            `;
+            card.appendChild(totalCalc);
+            
+            // Canvas
+            const canvasContainer = document.createElement('div');
+            canvasContainer.className = 'canvas-container';
+            const canvas = document.createElement('canvas');
+            canvas.width = 450;
+            canvas.height = 400;
+            canvasContainer.appendChild(canvas);
+            card.appendChild(canvasContainer);
+            
+            // Result
+            const result = document.createElement('div');
+            result.className = 'result';
+            result.textContent = `Total Area Coverage: ${areas.totalArea}`;
+            card.appendChild(result);
+            
+            // Draw on canvas
+            const ctx = canvas.getContext('2d');
+            
+            // Calculate bounds and scaling
+            const minX = Math.min(ax1, bx1) - 2;
+            const maxX = Math.max(ax2, bx2) + 2;
+            const minY = Math.min(ay1, by1) - 2;
+            const maxY = Math.max(ay2, by2) + 2;
+            
+            const rangeX = maxX - minX;
+            const rangeY = maxY - minY;
+            const margin = 40;
+            
+            const scaleX = (canvas.width - 2 * margin) / rangeX;
+            const scaleY = (canvas.height - 2 * margin) / rangeY;
+            const scale = Math.min(scaleX, scaleY);
+            
+            const offsetX = margin - minX * scale;
+            const offsetY = canvas.height - margin + minY * scale;
+            
+            // Draw grid
+            drawGrid(ctx, canvas, minX, maxX, minY, maxY, scale, scale, offsetX, offsetY);
+            
+            // Draw axes
+            drawAxes(ctx, canvas, minX, maxX, minY, maxY, scale, scale, offsetX, offsetY);
+            
+            // Draw rectangles
+            drawRectangle(ctx, ax1, ay1, ax2, ay2, scale, scale, offsetX, offsetY, 
+                         'rgba(231, 76, 60, 0.3)', '#e74c3c', 'A');
+            drawRectangle(ctx, bx1, by1, bx2, by2, scale, scale, offsetX, offsetY, 
+                         'rgba(46, 204, 113, 0.3)', '#2ecc71', 'B');
+            
+            // Draw overlap
+            drawOverlap(ctx, ax1, ay1, ax2, ay2, bx1, by1, bx2, by2, scale, scale, offsetX, offsetY);
+            
+            container.appendChild(card);
+        }
+        
+        function showExample(exampleNumber) {
+            const container = document.getElementById('examples-container');
+            container.innerHTML = '';
+            
+            if (exampleNumber === 2) {
+                visualizeExample(examples[0], container);
+            }
+        }
+        
+        function generateOverlappingExample() {
+            let attempts = 0;
+            let newExample;
+            
+            do {
+                // Generate random coordinates ensuring valid rectangles
+                const ax1 = Math.floor(Math.random() * 8) - 4;
+                const ay1 = Math.floor(Math.random() * 8) - 4;
+                const ax2 = ax1 + Math.floor(Math.random() * 4) + 2;
+                const ay2 = ay1 + Math.floor(Math.random() * 4) + 2;
+                
+                const bx1 = Math.floor(Math.random() * 8) - 4;
+                const by1 = Math.floor(Math.random() * 8) - 4;
+                const bx2 = bx1 + Math.floor(Math.random() * 4) + 2;
+                const by2 = by1 + Math.floor(Math.random() * 4) + 2;
+                
+                newExample = {
+                    title: `Generated Overlapping Example ${examples.length}`,
+                    ax1, ay1, ax2, ay2,
+                    bx1, by1, bx2, by2
+                };
+                
+                // Check if rectangles overlap
+                const areas = calculateArea(ax1, ay1, ax2, ay2, bx1, by1, bx2, by2);
+                if (areas.overlapArea > 0) {
+                    break;
+                }
+                
+                attempts++;
+            } while (attempts < 50);
+            
+            // If we couldn't generate overlapping rectangles, create a guaranteed overlap
+            if (attempts >= 50) {
+                newExample = {
+                    title: `Generated Overlapping Example ${examples.length}`,
+                    ax1: -1, ay1: -1, ax2: 2, ay2: 2,
+                    bx1: 0, by1: 0, bx2: 3, by2: 3
+                };
+            }
+            
+            return newExample;
+        }
+        
+        function generateNewExample() {
+            const newExample = generateOverlappingExample();
+            examples.push(newExample);
+            
+            const container = document.getElementById('examples-container');
+            visualizeExample(newExample, container);
+        }
+        
+        function copyCode(button, codeId) {
+            const codeBlock = document.getElementById(codeId);
+            
+            // Extract plain text from the styled code block
+            let plainText = '';
+            
+            if (codeId === 'code1') {
+                plainText = `class Solution {
+    /**
+     * Computes the total area covered by two axis-aligned rectangles.
+     * 
+     * @param ax1 x-coordinate of the bottom-left corner of rectangle A
+     * @param ay1 y-coordinate of the bottom-left corner of rectangle A
+     * @param ax2 x-coordinate of the top-right corner of rectangle A
+     * @param ay2 y-coordinate of the top-right corner of rectangle A
+     * @param bx1 x-coordinate of the bottom-left corner of rectangle B
+     * @param by1 y-coordinate of the bottom-left corner of rectangle B
+     * @param bx2 x-coordinate of the top-right corner of rectangle B
+     * @param by2 y-coordinate of the top-right corner of rectangle B
+     * @return total area covered by both rectangles
+     */
+    public int computeArea(int ax1, int ay1, int ax2, int ay2,
+                          int bx1, int by1, int bx2, int by2) {
+        
+        // Step 1: Calculate individual rectangle areas
+        int areaA = (ax2 - ax1) * (ay2 - ay1);
+        int areaB = (bx2 - bx1) * (by2 - by1);
+        
+        // Step 2: Calculate overlap dimensions
+        int overlapWidth = Math.max(0, Math.min(ax2, bx2) - Math.max(ax1, bx1));
+        int overlapHeight = Math.max(0, Math.min(ay2, by2) - Math.max(ay1, by1));
+        
+        // Step 3: Calculate overlap area
+        int overlapArea = overlapWidth * overlapHeight;
+        
+        // Step 4: Return total area (avoiding double counting)
+        return areaA + areaB - overlapArea;
+    }
+}`;
+            } else if (codeId === 'code2') {
+                plainText = `class Solution {
+    
+    /**
+     * Computes the total area covered by two axis-aligned rectangles.
+     * Uses helper methods for better code organization and readability.
+     * 
+     * @param ax1 x-coordinate of the bottom-left corner of rectangle A
+     * @param ay1 y-coordinate of the bottom-left corner of rectangle A
+     * @param ax2 x-coordinate of the top-right corner of rectangle A
+     * @param ay2 y-coordinate of the top-right corner of rectangle A
+     * @param bx1 x-coordinate of the bottom-left corner of rectangle B
+     * @param by1 y-coordinate of the bottom-left corner of rectangle B
+     * @param bx2 x-coordinate of the top-right corner of rectangle B
+     * @param by2 y-coordinate of the top-right corner of rectangle B
+     * @return total area covered by both rectangles
+     */
+    public int computeArea(int ax1, int ay1, int ax2, int ay2,
+                          int bx1, int by1, int bx2, int by2) {
+        
+        int areaA = calculateRectangleArea(ax1, ay1, ax2, ay2);
+        int areaB = calculateRectangleArea(bx1, by1, bx2, by2);
+        int overlapArea = calculateOverlapArea(ax1, ay1, ax2, ay2,
+                                              bx1, by1, bx2, by2);
+        
+        return areaA + areaB - overlapArea;
+    }
+    
+    /**
+     * Calculates the area of a single rectangle.
+     * 
+     * @param x1 x-coordinate of bottom-left corner
+     * @param y1 y-coordinate of bottom-left corner
+     * @param x2 x-coordinate of top-right corner
+     * @param y2 y-coordinate of top-right corner
+     * @return area of the rectangle
+     */
+    private int calculateRectangleArea(int x1, int y1, int x2, int y2) {
+        return (x2 - x1) * (y2 - y1);
+    }
+    
+    /**
+     * Calculates the overlap area between two rectangles.
+     * 
+     * @param ax1 x-coordinate of bottom-left corner of rectangle A
+     * @param ay1 y-coordinate of bottom-left corner of rectangle A
+     * @param ax2 x-coordinate of top-right corner of rectangle A
+     * @param ay2 y-coordinate of top-right corner of rectangle A
+     * @param bx1 x-coordinate of bottom-left corner of rectangle B
+     * @param by1 y-coordinate of bottom-left corner of rectangle B
+     * @param bx2 x-coordinate of top-right corner of rectangle B
+     * @param by2 y-coordinate of top-right corner of rectangle B
+     * @return overlap area between the two rectangles
+     */
+    private int calculateOverlapArea(int ax1, int ay1, int ax2, int ay2,
+                                   int bx1, int by1, int bx2, int by2) {
+        // Find overlap bounds
+        int left = Math.max(ax1, bx1);
+        int right = Math.min(ax2, bx2);
+        int bottom = Math.max(ay1, by1);
+        int top = Math.min(ay2, by2);
+        
+        // Check if there's actually an overlap
+        if (left >= right || bottom >= top) {
+            return 0; // No overlap
+        }
+        
+        return (right - left) * (top - bottom);
+    }
+}`;
+            }
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(plainText).then(() => {
+                // Update button appearance
+                const originalText = button.textContent;
+                button.textContent = '✅ Copied!';
+                button.classList.add('copied');
+                
+                // Reset button after 2 seconds
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy code: ', err);
+                button.textContent = '❌ Copy failed';
+                setTimeout(() => {
+                    button.textContent = '📋 Copy Code';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
